@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  db:
+    image: postgres:13
+    restart: always
+    shm_size: 1gb
+    ports:
+      - "5411:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    command:
+      -c work_mem=1GB
+      -c maintenance_work_mem=1GB
+      -c max_wal_size=4GB
+  db-mysql:
+    image: mysql/mysql-server:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'test'
+      MYSQL_ROOT_PASSWORD: 'test'
+    ports:
+      - '3306:3306'
